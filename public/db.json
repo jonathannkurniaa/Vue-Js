@@ -1,0 +1,28 @@
+{
+  "item": [
+    {
+      "id": 1,
+      "nama": "Nugget",
+      "harga": 30000,
+      "qty": 1,
+      "expired": "30 December 2021",
+      "gambar": "nugget.jpg"
+    },
+    {
+      "id": 2,
+      "nama": "Bakso",
+      "harga": 20000,
+      "qty": 1,
+      "expired": "2 September 2021",
+      "gambar": "bakso.jpg"
+    },
+    {
+      "id": 3,
+      "nama": "Sosis",
+      "harga": 10000,
+      "qty": 1,
+      "expired": "3 Oktober 2021",
+      "gambar": "sosis.jpg"
+    }
+  ]
+}

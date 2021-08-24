@@ -58,6 +58,7 @@
           Keranjang kamu kosong silahkan beli dahulu
         </h2>
        
+
       </table>
     </div>
   </div>
@@ -66,6 +67,7 @@
 <script>
 // @ is an alias to /src
 import Header from "../components/Header.vue";
+import axios from "axios"
 
 export default {
   name: "Home",
@@ -74,37 +76,19 @@ export default {
   },
   data() {
     return {
-      item: [
-        {
-          id: 1,
-          nama: "Nugget",
-          harga: 30000,
-          qty: 1,
-          expired: "30 December 2021",
-          gambar: "nugget.jpg",
-        },
-        {
-          id: 2,
-          nama: "Bakso",
-          harga: 20000,
-          qty: 1,
-          expired: "2 September 2021",
-          gambar: "bakso.jpg",
-        },
-        {
-          id: 3,
-          nama: "Sosis",
-          harga: 10000,
-          qty: 1,
-          expired: "3 Oktober 2021",
-          gambar: "sosis.jpg",
-        },
-      ],
+      item:[] ,
 
       keranjang: [],
       
     };
   },
+ mounted () {
+      axios.get('https://api.npoint.io/ad6f7cb8923b22b047ad')
+      .then(response => this.item = response.data.item)
+      // this.item = response.data.item;
+      
+  },
+  
   methods: {
     linkGambar: function(value) {
       return "../assets/" + value;
@@ -143,7 +127,7 @@ export default {
       });
       
       this.keranjang.pop(index);
-      
+
     },
     totalHarga: function(){
       var totalHarga = 0;
