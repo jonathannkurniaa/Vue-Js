@@ -49,16 +49,17 @@
               </button>
             </td>
           </tr>
-           
-          <p>Total Harga : <b>{{totalHarga()}}</b></p>
-          <button class="btn btn-primary" v-on:click="checkOut()">Checkout</button>
-       
+
+          <p>
+            Total Harga : <b>{{ totalHarga() }}</b>
+          </p>
+          <button class="btn btn-primary" v-on:click="checkOut()">
+            Checkout
+          </button>
         </tbody>
         <h2 style="text-align:center;margin-top:50px;" v-else>
           Keranjang kamu kosong silahkan beli dahulu
         </h2>
-       
-
       </table>
     </div>
   </div>
@@ -67,7 +68,7 @@
 <script>
 // @ is an alias to /src
 import Header from "../components/Header.vue";
-import axios from "axios"
+import axios from "axios";
 
 export default {
   name: "Home",
@@ -76,19 +77,33 @@ export default {
   },
   data() {
     return {
-      item:[] ,
+      item: [],
 
       keranjang: [],
-      
     };
   },
- mounted () {
-      axios.get('https://api.npoint.io/ad6f7cb8923b22b047ad')
-      .then(response => this.item = response.data.item)
-      // this.item = response.data.item;
-      
+  async mounted() {
+    // this.item = response.data.item;
+
+    // window.localStorage.setItem("data", JSON.stringify(this.item));
+    const storeItems = localStorage.getItem("storeItems");
+
+    if (storeItems != "") {
+      this.item = JSON.parse(storeItems);
+      console.log("if")
+    } else {
+      // await axios
+        // .get("https://api.npoint.io/ad6f7cb8923b22b047ad")
+        // .then((response) => (this.item = response.data.item));
+
+        const response = await axios.get("https://api.npoint.io/ad6f7cb8923b22b047ad")
+      this.item = response.data
+        console.log("aaa")
+
+        window.localStorage.setItem("storeItems", JSON.stringify(this.item));
+    }
   },
-  
+
   methods: {
     linkGambar: function(value) {
       return "../assets/" + value;
@@ -118,29 +133,27 @@ export default {
     },
 
     totalPerItem: function(value, qty) {
-
       return value * qty;
     },
     deletee: function(value) {
       const index = this.keranjang.findIndex(function(each) {
         return each.id == value;
       });
-      
-      this.keranjang.pop(index);
 
+      this.keranjang.pop(index);
     },
-    totalHarga: function(){
+    totalHarga: function() {
       var totalHarga = 0;
       for (let index = 0; index < this.keranjang.length; index++) {
-        
-        totalHarga = totalHarga + (this.keranjang[index].qty * this.keranjang[index].harga);
+        totalHarga =
+          totalHarga + this.keranjang[index].qty * this.keranjang[index].harga;
       }
       return totalHarga;
     },
-    checkOut:function(){
-       this.keranjang = [];
+    checkOut: function() {
+      this.keranjang = [];
       alert("Belanja berhasil!");
-    }
+    },
   },
   computed: {
     gambarKeranjang: function(value) {
