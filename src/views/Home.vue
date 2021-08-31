@@ -86,21 +86,42 @@ export default {
     // this.item = response.data.item;
 
     // window.localStorage.setItem("data", JSON.stringify(this.item));
-    const storeItems = localStorage.getItem("storeItems");
+    // const storeItems = window.localStorage.getItem("storeItems");
 
-    if (storeItems != "") {
+    // if (storeItems != "") {
+    //   this.item = JSON.parse(storeItems);
+    //   console.log("if")
+    // } else {
+    //   // await axios
+    //     // .get("https://api.npoint.io/ad6f7cb8923b22b047ad")
+    //     // .then((response) => (this.item = response.data.item));
+
+    //     const response = await axios.get("https://api.npoint.io/ad6f7cb8923b22b047ad")
+    //   this.item = response.data.item
+    //     console.log("aaa")
+
+    //     window.localStorage.setItem("storeItems", JSON.stringify(this.item));
+
+    
+    // }
+    
+    const storeItems = localStorage.getItem("storeItems");
+    
+    if (storeItems) {
       this.item = JSON.parse(storeItems);
-      console.log("if")
+      console.log(this.item);
+      
     } else {
       // await axios
-        // .get("https://api.npoint.io/ad6f7cb8923b22b047ad")
-        // .then((response) => (this.item = response.data.item));
+      //   .get("https://api.npoint.io/ad6f7cb8923b22b047ad")
+      //   .then((response) => (this.item = response.data.item));
 
         const response = await axios.get("https://api.npoint.io/ad6f7cb8923b22b047ad")
-      this.item = response.data
-        console.log("aaa")
+        // this.item = response.data.item
 
-        window.localStorage.setItem("storeItems", JSON.stringify(this.item));
+        window.localStorage.setItem("storeItems", JSON.stringify(response.data.item));
+        console.log("else");
+       
     }
   },
 
